@@ -16,12 +16,23 @@ import {
 export class SurveyComponent {
   @Prop() surveyData: any;
   @State() userAnswers: any;
+  @State() currentPage = 1;
 
   updateAnswers = (key: string, value: string[]) => {
     this.userAnswers = {
       ...this.userAnswers,
       [key]: value
     }
+  }
+
+  handleNextClick = (pagesLength: number) => {
+    if (this.currentPage === pagesLength) return
+    this.currentPage++;
+  }
+
+  handleBackClick = () => {
+    if (this.currentPage === 1) return
+    this.currentPage--;
   }
 
   getQuestionComponent = (props) => {
@@ -40,8 +51,10 @@ export class SurveyComponent {
   render() {
     const survey = getSurveyData(mockSurveyData)
     const pages = getSurveyPages(survey)
+
     const allQuestions = getSurveyQuestions(survey)
     const estimatedTime = allQuestions?.length * .5
+
     const introHtmlString = documentToHtmlString(survey?.intro?.json)
     const truncatedIntro = truncateText(introHtmlString, 200)
 
@@ -55,13 +68,41 @@ export class SurveyComponent {
         </div>
 
         <div class='pages'>
-          {pages[0]?.elements?.map((question, index) => (
-            this.getQuestionComponent({
-              questionNumber: index + 1,
-              question,
-              updateAnswers: this.updateAnswers
-            })
+          {pages.map((page, pageIndex) => (
+            <div
+              class={{
+                'hide': pageIndex !== this.currentPage - 1
+              }}
+            >
+              {
+                page?.elements?.map((question, index) => (
+                  this.getQuestionComponent({
+                    questionNumber: index + 1,
+                    question,
+                    updateAnswers: this.updateAnswers
+                  })
+                ))
+              }
+            </div>
           ))}
+        </div>
+
+        <div class='buttons-container'>
+          {this.currentPage === 1 ? null : (
+            <button
+              class='secondary-button'
+              onClick={() => this.handleBackClick()}
+            >
+              back
+            </button>
+          )}
+
+          <button
+            class='primary-button'
+            onClick={() => this.handleNextClick(pages?.length)}
+          >
+            {this.currentPage === pages?.length ? 'submit' : 'next'}
+          </button>
         </div>
       </Host>
     )

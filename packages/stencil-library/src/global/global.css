@@ -8,4 +8,6 @@ body {
 :root {
   --grey-color: #4B4B4B;
   --main-bg-color: #dce1e2;
+  --main-blue: #01619B;
+  --blue-hover: #1889d0;
 }
