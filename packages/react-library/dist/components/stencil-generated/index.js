@@ -1,3 +1,3 @@
 import { createReactComponent } from './react-component-lib';
-export const MyComponent = createReactComponent('my-component');
+export const SurveyComponent = createReactComponent('survey-component');
 //# sourceMappingURL=index.js.map

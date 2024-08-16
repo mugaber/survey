@@ -7,4 +7,4 @@ import type { JSX } from 'stencil-library';
 
 
 
-export const MyComponent = /*@__PURE__*/createReactComponent<JSX.MyComponent, HTMLMyComponentElement>('my-component');
+export const SurveyComponent = /*@__PURE__*/createReactComponent<JSX.SurveyComponent, HTMLSurveyComponentElement>('survey-component');
