@@ -35,19 +35,6 @@ export class SurveyComponent {
     this.currentPage--;
   }
 
-  getQuestionComponent = (props) => {
-    switch (props.question.type) {
-      case 'radiogroup':
-        return <radio-question {...props} />
-      case 'text':
-        return <text-question {...props} />
-      case 'checkbox':
-        return <checkbox-question {...props} />
-      default:
-        return null
-    }
-  }
-
   render() {
     const survey = getSurveyData(mockSurveyData)
     const pages = getSurveyPages(survey)
@@ -69,21 +56,11 @@ export class SurveyComponent {
 
         <div class='pages'>
           {pages.map((page, pageIndex) => (
-            <div
-              class={{
-                'hide': pageIndex !== this.currentPage - 1
-              }}
-            >
-              {
-                page?.elements?.map((question, index) => (
-                  this.getQuestionComponent({
-                    questionNumber: index + 1,
-                    question,
-                    updateAnswers: this.updateAnswers
-                  })
-                ))
-              }
-            </div>
+            <page-component
+              class={{ hide: this.currentPage !== pageIndex + 1 }}
+              questions={page.elements}
+              updateAnswers={this.updateAnswers}
+            />
           ))}
         </div>
 

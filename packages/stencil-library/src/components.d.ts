@@ -13,6 +13,10 @@ export namespace Components {
         "questionNumber": number;
         "updateAnswers": (key: string, value: string[]) => void;
     }
+    interface PageComponent {
+        "questions": any;
+        "updateAnswers": (key: string, value: string[]) => void;
+    }
     interface RadioQuestion {
         "question": RadioQuestionType;
         "questionNumber": number;
@@ -34,6 +38,12 @@ declare global {
         prototype: HTMLCheckboxQuestionElement;
         new (): HTMLCheckboxQuestionElement;
     };
+    interface HTMLPageComponentElement extends Components.PageComponent, HTMLStencilElement {
+    }
+    var HTMLPageComponentElement: {
+        prototype: HTMLPageComponentElement;
+        new (): HTMLPageComponentElement;
+    };
     interface HTMLRadioQuestionElement extends Components.RadioQuestion, HTMLStencilElement {
     }
     var HTMLRadioQuestionElement: {
@@ -54,6 +64,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "checkbox-question": HTMLCheckboxQuestionElement;
+        "page-component": HTMLPageComponentElement;
         "radio-question": HTMLRadioQuestionElement;
         "survey-component": HTMLSurveyComponentElement;
         "text-question": HTMLTextQuestionElement;
@@ -63,6 +74,10 @@ declare namespace LocalJSX {
     interface CheckboxQuestion {
         "question"?: RadioQuestionType;
         "questionNumber"?: number;
+        "updateAnswers"?: (key: string, value: string[]) => void;
+    }
+    interface PageComponent {
+        "questions"?: any;
         "updateAnswers"?: (key: string, value: string[]) => void;
     }
     interface RadioQuestion {
@@ -80,6 +95,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "checkbox-question": CheckboxQuestion;
+        "page-component": PageComponent;
         "radio-question": RadioQuestion;
         "survey-component": SurveyComponent;
         "text-question": TextQuestion;
@@ -90,6 +106,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "checkbox-question": LocalJSX.CheckboxQuestion & JSXBase.HTMLAttributes<HTMLCheckboxQuestionElement>;
+            "page-component": LocalJSX.PageComponent & JSXBase.HTMLAttributes<HTMLPageComponentElement>;
             "radio-question": LocalJSX.RadioQuestion & JSXBase.HTMLAttributes<HTMLRadioQuestionElement>;
             "survey-component": LocalJSX.SurveyComponent & JSXBase.HTMLAttributes<HTMLSurveyComponentElement>;
             "text-question": LocalJSX.TextQuestion & JSXBase.HTMLAttributes<HTMLTextQuestionElement>;
