@@ -7,6 +7,7 @@ import { Component, Host, Prop, h } from '@stencil/core';
 })
 export class PageComponent {
   @Prop() questions: any;
+  @Prop() unansweredQuestions: string[];
   @Prop() updateAnswers: (key: string, value: string[]) => void;
 
   getQuestionComponent = (props) => {
@@ -28,13 +29,19 @@ export class PageComponent {
     return (
       <Host>
         {this.questions.map((question, index) => {
+          const isUnanswered = this.unansweredQuestions?.includes(question.name);
           const props = {
             questionNumber: index + 1,
             question,
             updateAnswers: this.updateAnswers
           }
 
-          return this.getQuestionComponent(props)
+          return (
+            <div class='question-wrapper'>
+              <span class={{ 'alert-dot': isUnanswered }} />
+              {this.getQuestionComponent(props)}
+            </div>
+          )
         })}
       </Host>
     );

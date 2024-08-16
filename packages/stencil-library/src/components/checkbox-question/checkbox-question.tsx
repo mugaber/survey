@@ -26,7 +26,6 @@ export class CheckboxQuestion {
     this.updateAnswers(this.question.name, this.selectedChoices);
   }
 
-
   render() {
     return (
       <Host>
@@ -39,7 +38,7 @@ export class CheckboxQuestion {
                 'choice': true,
                 'selected': this.selectedChoices.includes(choice)
               }}
-                onClick={this.handleCheckboxChange}
+                onChange={this.handleCheckboxChange}
               >
                 <input
                   type='checkbox'

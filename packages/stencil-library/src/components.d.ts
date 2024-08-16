@@ -20,6 +20,7 @@ export namespace Components {
     }
     interface PageComponent {
         "questions": any;
+        "unansweredQuestions": string[];
         "updateAnswers": (key: string, value: string[]) => void;
     }
     interface RadioQuestion {
@@ -95,6 +96,7 @@ declare namespace LocalJSX {
     }
     interface PageComponent {
         "questions"?: any;
+        "unansweredQuestions"?: string[];
         "updateAnswers"?: (key: string, value: string[]) => void;
     }
     interface RadioQuestion {

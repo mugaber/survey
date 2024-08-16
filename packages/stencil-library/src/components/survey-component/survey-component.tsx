@@ -1,4 +1,4 @@
-import { Component, Host, Prop, State, h } from '@stencil/core';
+import { Component, Host, Prop, State, Watch, h } from '@stencil/core';
 import mockSurveyData from '../../data/surveyData'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import {
@@ -20,12 +20,27 @@ export class SurveyComponent {
   @State() userAnswers: any;
   @State() currentPage = 1;
   @State() isLoading = false;
+  @State() unansweredQuestions: any;
+  pages: any;
 
   updateAnswers = (key: string, value: string[]) => {
     this.userAnswers = {
       ...this.userAnswers,
       [key]: value
     }
+  }
+
+  @Watch('userAnswers')
+  watchHandler(newValue: any) {
+    const userAnswersKeys = Object.keys(newValue)
+    const wasUnAnswered = userAnswersKeys?.some(
+      key => this.unansweredQuestions?.includes(key)
+    )
+
+    if (!wasUnAnswered) return
+    this.unansweredQuestions = this.unansweredQuestions?.filter(
+      question => !userAnswersKeys?.includes(question)
+    )
   }
 
   handleSubmit = () => {
@@ -46,7 +61,20 @@ export class SurveyComponent {
     })
   }
 
+  getUnAnsweredQuestions = () => {
+    const pageQuestions = this.pages[this.currentPage - 1].elements;
+    const unansweredQuestions = pageQuestions.filter(question => {
+      return !this.userAnswers?.[question.name]
+    }).map(question => question.name);
+    return unansweredQuestions;
+  }
+
   handleNextClick = (pagesLength: number) => {
+    const unansweredQuestions = this.getUnAnsweredQuestions();
+    if (unansweredQuestions?.length) {
+      return this.unansweredQuestions = unansweredQuestions;
+    }
+
     if (this.currentPage === pagesLength) return this.handleSubmit()
     this.currentPage++;
   }
@@ -59,12 +87,15 @@ export class SurveyComponent {
   render() {
     const survey = getSurveyData(mockSurveyData)
     const pages = getSurveyPages(survey)
+    this.pages = pages
 
     const allQuestions = getSurveyQuestions(survey)
     const estimatedTime = allQuestions?.length * .5
 
     const introHtmlString = documentToHtmlString(survey?.intro?.json)
     const truncatedIntro = truncateText(introHtmlString, 200)
+
+    const showErrorMessage = this.unansweredQuestions?.length > 0;
 
     return (
       <Host>
@@ -81,11 +112,23 @@ export class SurveyComponent {
               class={{ hide: this.currentPage !== pageIndex + 1 }}
               questions={page.elements}
               updateAnswers={this.updateAnswers}
+              unansweredQuestions={this.unansweredQuestions}
             />
           ))}
         </div>
 
-        <div class='buttons-container'>
+        {showErrorMessage && (
+          <div class='error-message'>
+            <p>Please answer all questions before continuing</p>
+          </div>
+        )}
+
+        <div
+          class={{
+            'buttons-container': true,
+            'reduce-margin': showErrorMessage
+          }}
+        >
           {this.currentPage === 1 ? null : (
             <button
               class='secondary-button'
