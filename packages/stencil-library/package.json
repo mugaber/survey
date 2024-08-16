@@ -47,5 +47,8 @@
     "jest-cli": "^29.7.0",
     "puppeteer": "^21.9.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@contentful/rich-text-html-renderer": "^16.6.8"
+  }
 }
