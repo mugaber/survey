@@ -8,6 +8,11 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { RadioQuestionType } from "./utils/types";
 export { RadioQuestionType } from "./utils/types";
 export namespace Components {
+    interface BooleanQuestion {
+        "question": any;
+        "questionNumber": number;
+        "updateAnswers": (key: string, value: string[]) => void;
+    }
     interface CheckboxQuestion {
         "question": RadioQuestionType;
         "questionNumber": number;
@@ -32,6 +37,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLBooleanQuestionElement extends Components.BooleanQuestion, HTMLStencilElement {
+    }
+    var HTMLBooleanQuestionElement: {
+        prototype: HTMLBooleanQuestionElement;
+        new (): HTMLBooleanQuestionElement;
+    };
     interface HTMLCheckboxQuestionElement extends Components.CheckboxQuestion, HTMLStencilElement {
     }
     var HTMLCheckboxQuestionElement: {
@@ -63,6 +74,7 @@ declare global {
         new (): HTMLTextQuestionElement;
     };
     interface HTMLElementTagNameMap {
+        "boolean-question": HTMLBooleanQuestionElement;
         "checkbox-question": HTMLCheckboxQuestionElement;
         "page-component": HTMLPageComponentElement;
         "radio-question": HTMLRadioQuestionElement;
@@ -71,6 +83,11 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface BooleanQuestion {
+        "question"?: any;
+        "questionNumber"?: number;
+        "updateAnswers"?: (key: string, value: string[]) => void;
+    }
     interface CheckboxQuestion {
         "question"?: RadioQuestionType;
         "questionNumber"?: number;
@@ -94,6 +111,7 @@ declare namespace LocalJSX {
         "updateAnswers"?: (key: string, value: string[]) => void;
     }
     interface IntrinsicElements {
+        "boolean-question": BooleanQuestion;
         "checkbox-question": CheckboxQuestion;
         "page-component": PageComponent;
         "radio-question": RadioQuestion;
@@ -105,6 +123,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "boolean-question": LocalJSX.BooleanQuestion & JSXBase.HTMLAttributes<HTMLBooleanQuestionElement>;
             "checkbox-question": LocalJSX.CheckboxQuestion & JSXBase.HTMLAttributes<HTMLCheckboxQuestionElement>;
             "page-component": LocalJSX.PageComponent & JSXBase.HTMLAttributes<HTMLPageComponentElement>;
             "radio-question": LocalJSX.RadioQuestion & JSXBase.HTMLAttributes<HTMLRadioQuestionElement>;

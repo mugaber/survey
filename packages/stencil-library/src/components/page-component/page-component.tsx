@@ -17,6 +17,8 @@ export class PageComponent {
         return <text-question {...props} />
       case 'checkbox':
         return <checkbox-question {...props} />
+      case 'boolean':
+        return <boolean-question {...props} />
       default:
         return null
     }

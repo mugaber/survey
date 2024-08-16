@@ -1,0 +1,36 @@
+:host {
+  display: block;
+}
+
+.question {
+  h4 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+.choices {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  padding-left: 12px;
+  align-items: center;
+
+  div {
+    display: flex;
+    padding: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+
+    &:hover {
+      color: var(--blue-hover);
+    }
+
+    &.selected {
+      color: var(--main-blue);
+      text-decoration: underline;
+    }
+  }
+}
