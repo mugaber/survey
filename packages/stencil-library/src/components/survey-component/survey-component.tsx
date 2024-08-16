@@ -24,6 +24,17 @@ export class SurveyComponent {
     }
   }
 
+  getQuestionComponent = (props) => {
+    switch (props.question.type) {
+      case 'radiogroup':
+        return <radio-question {...props} />
+      case 'text':
+        return <text-question {...props} />
+      default:
+        return null
+    }
+  }
+
   render() {
     const survey = getSurveyData(mockSurveyData)
     const pages = getSurveyPages(survey)
@@ -43,11 +54,11 @@ export class SurveyComponent {
 
         <div class='pages'>
           {pages[0]?.elements?.map((question, index) => (
-            <radio-question
-              question={question}
-              questionNumber={index + +1}
-              updateAnswers={this.updateAnswers}
-            />
+            this.getQuestionComponent({
+              questionNumber: index + 1,
+              question,
+              updateAnswers: this.updateAnswers
+            })
           ))}
         </div>
       </Host>

@@ -16,6 +16,11 @@ export namespace Components {
     interface SurveyComponent {
         "surveyData": any;
     }
+    interface TextQuestion {
+        "question": any;
+        "questionNumber": number;
+        "updateAnswers": (key: string, value: string[]) => void;
+    }
 }
 declare global {
     interface HTMLRadioQuestionElement extends Components.RadioQuestion, HTMLStencilElement {
@@ -30,9 +35,16 @@ declare global {
         prototype: HTMLSurveyComponentElement;
         new (): HTMLSurveyComponentElement;
     };
+    interface HTMLTextQuestionElement extends Components.TextQuestion, HTMLStencilElement {
+    }
+    var HTMLTextQuestionElement: {
+        prototype: HTMLTextQuestionElement;
+        new (): HTMLTextQuestionElement;
+    };
     interface HTMLElementTagNameMap {
         "radio-question": HTMLRadioQuestionElement;
         "survey-component": HTMLSurveyComponentElement;
+        "text-question": HTMLTextQuestionElement;
     }
 }
 declare namespace LocalJSX {
@@ -44,9 +56,15 @@ declare namespace LocalJSX {
     interface SurveyComponent {
         "surveyData"?: any;
     }
+    interface TextQuestion {
+        "question"?: any;
+        "questionNumber"?: number;
+        "updateAnswers"?: (key: string, value: string[]) => void;
+    }
     interface IntrinsicElements {
         "radio-question": RadioQuestion;
         "survey-component": SurveyComponent;
+        "text-question": TextQuestion;
     }
 }
 export { LocalJSX as JSX };
@@ -55,6 +73,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "radio-question": LocalJSX.RadioQuestion & JSXBase.HTMLAttributes<HTMLRadioQuestionElement>;
             "survey-component": LocalJSX.SurveyComponent & JSXBase.HTMLAttributes<HTMLSurveyComponentElement>;
+            "text-question": LocalJSX.TextQuestion & JSXBase.HTMLAttributes<HTMLTextQuestionElement>;
         }
     }
 }
