@@ -2,11 +2,13 @@ import { Component, Host, Prop, State, h } from '@stencil/core';
 import mockSurveyData from '../../data/surveyData'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import {
+  getFacetFilters,
   getSurveyData,
   getSurveyPages,
   getSurveyQuestions,
   truncateText
 } from '../../utils/utils';
+import searchIndex from '../../services/algolia';
 
 @Component({
   tag: 'survey-component',
@@ -25,8 +27,19 @@ export class SurveyComponent {
     }
   }
 
+  handleSubmit = () => {
+    const filters = getFacetFilters(this.userAnswers)
+    searchIndex.search('', {
+      facetFilters: filters
+    }).then(({ hits }) => {
+      console.log(hits)
+    }).catch((err) => {
+      console.log('Error getting algolia results:', err)
+    })
+  }
+
   handleNextClick = (pagesLength: number) => {
-    if (this.currentPage === pagesLength) return
+    if (this.currentPage === pagesLength) return this.handleSubmit()
     this.currentPage++;
   }
 

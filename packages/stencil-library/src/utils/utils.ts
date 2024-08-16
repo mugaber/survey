@@ -28,3 +28,8 @@ export function getSurveyQuestions(survey) {
 export function truncateText(text, length) {
   return text.length > length ? `${text.substring(0, length)}...` : text
 }
+
+export function getFacetFilters(answers) {
+  const filters = Object.values(answers).flat().map(value => `relevantTo:${value}`)
+  return filters
+}

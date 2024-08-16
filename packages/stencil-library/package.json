@@ -49,6 +49,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@contentful/rich-text-html-renderer": "^16.6.8"
+    "@contentful/rich-text-html-renderer": "^16.6.8",
+    "algoliasearch": "^4.13.1"
   }
 }
