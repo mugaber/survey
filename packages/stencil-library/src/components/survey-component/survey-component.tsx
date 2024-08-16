@@ -1,8 +1,9 @@
-import { Component, Host, Prop, h } from '@stencil/core';
+import { Component, Host, Prop, State, h } from '@stencil/core';
 import mockSurveyData from '../../data/surveyData'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import {
   getSurveyData,
+  getSurveyPages,
   getSurveyQuestions,
   truncateText
 } from '../../utils/utils';
@@ -14,9 +15,18 @@ import {
 })
 export class SurveyComponent {
   @Prop() surveyData: any;
+  @State() userAnswers: any;
+
+  updateAnswers = (key: string, value: string[]) => {
+    this.userAnswers = {
+      ...this.userAnswers,
+      [key]: value
+    }
+  }
 
   render() {
     const survey = getSurveyData(mockSurveyData)
+    const pages = getSurveyPages(survey)
     const allQuestions = getSurveyQuestions(survey)
     const estimatedTime = allQuestions?.length * .5
     const introHtmlString = documentToHtmlString(survey?.intro?.json)
@@ -29,6 +39,16 @@ export class SurveyComponent {
           <h1>{survey?.name}</h1>
           <p class="timer">Takes only {estimatedTime} minutes</p>
           <div class="intro-container" innerHTML={truncatedIntro} />
+        </div>
+
+        <div class='pages'>
+          {pages[0]?.elements?.map((question, index) => (
+            <radio-question
+              question={question}
+              questionNumber={index + +1}
+              updateAnswers={this.updateAnswers}
+            />
+          ))}
         </div>
       </Host>
     )

@@ -11,6 +11,12 @@ export function getSurveyData(rawData) {
   return survey
 }
 
+export function getSurveyPages(survey) {
+  if (!survey) return null;
+  const pages = survey.questions.pages;
+  return pages;
+}
+
 export function getSurveyQuestions(survey) {
   if (!survey) return null
   const questions = survey.questions.pages.map(

@@ -24,3 +24,10 @@
     display: none;
   }
 }
+
+.pages {
+  padding: 20px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
