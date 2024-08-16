@@ -1,5 +1,4 @@
 import { Component, Host, Prop, State, Watch, h } from '@stencil/core';
-import mockSurveyData from '../../data/surveyData'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import {
   getFacetFilters,
@@ -104,7 +103,7 @@ export class SurveyComponent {
   }
 
   render() {
-    const survey = getSurveyData(mockSurveyData)
+    const survey = getSurveyData(this.surveyData)
     const pages = getSurveyPages(survey)
     this.pages = pages
 
