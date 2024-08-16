@@ -23,6 +23,10 @@ export namespace Components {
         "unansweredQuestions": string[];
         "updateAnswers": (key: string, value: string[]) => void;
     }
+    interface ProgressBar {
+        "progress": number;
+        "total": number;
+    }
     interface RadioQuestion {
         "question": RadioQuestionType;
         "questionNumber": number;
@@ -56,6 +60,12 @@ declare global {
         prototype: HTMLPageComponentElement;
         new (): HTMLPageComponentElement;
     };
+    interface HTMLProgressBarElement extends Components.ProgressBar, HTMLStencilElement {
+    }
+    var HTMLProgressBarElement: {
+        prototype: HTMLProgressBarElement;
+        new (): HTMLProgressBarElement;
+    };
     interface HTMLRadioQuestionElement extends Components.RadioQuestion, HTMLStencilElement {
     }
     var HTMLRadioQuestionElement: {
@@ -78,6 +88,7 @@ declare global {
         "boolean-question": HTMLBooleanQuestionElement;
         "checkbox-question": HTMLCheckboxQuestionElement;
         "page-component": HTMLPageComponentElement;
+        "progress-bar": HTMLProgressBarElement;
         "radio-question": HTMLRadioQuestionElement;
         "survey-component": HTMLSurveyComponentElement;
         "text-question": HTMLTextQuestionElement;
@@ -99,6 +110,10 @@ declare namespace LocalJSX {
         "unansweredQuestions"?: string[];
         "updateAnswers"?: (key: string, value: string[]) => void;
     }
+    interface ProgressBar {
+        "progress"?: number;
+        "total"?: number;
+    }
     interface RadioQuestion {
         "question"?: RadioQuestionType;
         "questionNumber"?: number;
@@ -116,6 +131,7 @@ declare namespace LocalJSX {
         "boolean-question": BooleanQuestion;
         "checkbox-question": CheckboxQuestion;
         "page-component": PageComponent;
+        "progress-bar": ProgressBar;
         "radio-question": RadioQuestion;
         "survey-component": SurveyComponent;
         "text-question": TextQuestion;
@@ -128,6 +144,7 @@ declare module "@stencil/core" {
             "boolean-question": LocalJSX.BooleanQuestion & JSXBase.HTMLAttributes<HTMLBooleanQuestionElement>;
             "checkbox-question": LocalJSX.CheckboxQuestion & JSXBase.HTMLAttributes<HTMLCheckboxQuestionElement>;
             "page-component": LocalJSX.PageComponent & JSXBase.HTMLAttributes<HTMLPageComponentElement>;
+            "progress-bar": LocalJSX.ProgressBar & JSXBase.HTMLAttributes<HTMLProgressBarElement>;
             "radio-question": LocalJSX.RadioQuestion & JSXBase.HTMLAttributes<HTMLRadioQuestionElement>;
             "survey-component": LocalJSX.SurveyComponent & JSXBase.HTMLAttributes<HTMLSurveyComponentElement>;
             "text-question": LocalJSX.TextQuestion & JSXBase.HTMLAttributes<HTMLTextQuestionElement>;

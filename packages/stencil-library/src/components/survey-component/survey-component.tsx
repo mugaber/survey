@@ -104,6 +104,10 @@ export class SurveyComponent {
           <h1>{survey?.name}</h1>
           <p class="timer">Takes only {estimatedTime} minutes</p>
           <div class="intro-container" innerHTML={truncatedIntro} />
+
+          <div class='progress-wrapper'>
+            <progress-bar total={pages?.length} progress={this.currentPage} />
+          </div>
         </div>
 
         <div class='pages'>
