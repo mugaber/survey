@@ -2,6 +2,25 @@
   display: block;
 }
 
-h1 {
+.header {
+  background-color: var(--main-bg-color);
+  padding: 20px 60px 20px 40px;
   color: var(--grey-color);
+}
+
+.label {
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.timer {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.intro-container {
+  h1 {
+    display: none;
+  }
 }
