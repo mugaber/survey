@@ -12,5 +12,6 @@ export const CheckboxQuestion = /*@__PURE__*/createReactComponent<JSX.CheckboxQu
 export const PageComponent = /*@__PURE__*/createReactComponent<JSX.PageComponent, HTMLPageComponentElement>('page-component');
 export const ProgressBar = /*@__PURE__*/createReactComponent<JSX.ProgressBar, HTMLProgressBarElement>('progress-bar');
 export const RadioQuestion = /*@__PURE__*/createReactComponent<JSX.RadioQuestion, HTMLRadioQuestionElement>('radio-question');
+export const RecommendationCard = /*@__PURE__*/createReactComponent<JSX.RecommendationCard, HTMLRecommendationCardElement>('recommendation-card');
 export const SurveyComponent = /*@__PURE__*/createReactComponent<JSX.SurveyComponent, HTMLSurveyComponentElement>('survey-component');
 export const TextQuestion = /*@__PURE__*/createReactComponent<JSX.TextQuestion, HTMLTextQuestionElement>('text-question');

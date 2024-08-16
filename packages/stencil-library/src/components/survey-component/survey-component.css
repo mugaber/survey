@@ -57,6 +57,20 @@
   }
 }
 
+.recommendations {
+  display: flex;
+  gap: 14px;
+  padding: 20px 40px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #ccc;
+}
+
+.recommendation-card {
+  flex-basis: 49%;
+  box-sizing: border-box;
+  height: 100%;
+}
+
 .buttons-container {
   padding: 20px 40px;
   display: flex;

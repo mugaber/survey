@@ -9,6 +9,8 @@ import {
   truncateText
 } from '../../utils/utils';
 import searchIndex from '../../services/algolia';
+import recommendationsFallback from '../../data/recommendation';
+
 
 @Component({
   tag: 'survey-component',
@@ -21,6 +23,8 @@ export class SurveyComponent {
   @State() currentPage = 1;
   @State() isLoading = false;
   @State() unansweredQuestions: any;
+  @State() recommendations: any[];
+  @State() showRecommendations = false;
   pages: any;
 
   updateAnswers = (key: string, value: string[]) => {
@@ -52,8 +56,10 @@ export class SurveyComponent {
       facetFilters: filters
     }).then(({ hits }) => {
       setTimeout(() => {
-        console.log(hits);
+        console.log('Algolia hits:', hits);
         this.isLoading = false;
+        this.showRecommendations = true;
+        this.recommendations = hits?.length ? hits : recommendationsFallback
       }, 1000)
     }).catch((err) => {
       this.isLoading = false
@@ -70,6 +76,14 @@ export class SurveyComponent {
   }
 
   handleNextClick = (pagesLength: number) => {
+    const attemptAgain = this.showRecommendations;
+    if (attemptAgain) {
+      this.showRecommendations = false;
+      this.userAnswers = {}
+      this.currentPage = 1;
+      return;
+    }
+
     const unansweredQuestions = this.getUnAnsweredQuestions();
     if (unansweredQuestions?.length) {
       return this.unansweredQuestions = unansweredQuestions;
@@ -96,6 +110,7 @@ export class SurveyComponent {
     const truncatedIntro = truncateText(introHtmlString, 200)
 
     const showErrorMessage = this.unansweredQuestions?.length > 0;
+    const hideBackButton = this.currentPage === 1 || this.showRecommendations;
 
     return (
       <Host>
@@ -110,13 +125,32 @@ export class SurveyComponent {
           </div>
         </div>
 
-        <div class='pages'>
+        <div
+          class={{
+            'pages': true,
+            'hide': this.showRecommendations
+          }}
+        >
           {pages.map((page, pageIndex) => (
             <page-component
               class={{ hide: this.currentPage !== pageIndex + 1 }}
               questions={page.elements}
               updateAnswers={this.updateAnswers}
               unansweredQuestions={this.unansweredQuestions}
+            />
+          ))}
+        </div>
+
+        <div
+          class={{
+            'recommendations': true,
+            'hide': !this.showRecommendations
+          }}
+        >
+          {this.recommendations?.map(recommendation => (
+            <recommendation-card
+              class='recommendation-card'
+              recommendation={recommendation}
             />
           ))}
         </div>
@@ -133,7 +167,7 @@ export class SurveyComponent {
             'reduce-margin': showErrorMessage
           }}
         >
-          {this.currentPage === 1 ? null : (
+          {hideBackButton ? null : (
             <button
               class='secondary-button'
               onClick={() => this.handleBackClick()}
@@ -149,7 +183,9 @@ export class SurveyComponent {
             {this.isLoading ? (
               <div class='loader' />
             ) : (
-              this.currentPage === pages?.length ? 'submit' : 'next'
+              this.showRecommendations
+                ? 'Attempt again'
+                : this.currentPage === pages?.length ? 'submit' : 'next'
             )}
           </button>
         </div>

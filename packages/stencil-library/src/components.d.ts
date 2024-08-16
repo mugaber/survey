@@ -32,6 +32,9 @@ export namespace Components {
         "questionNumber": number;
         "updateAnswers": (key: string, value: string[]) => void;
     }
+    interface RecommendationCard {
+        "recommendation": any;
+    }
     interface SurveyComponent {
         "surveyData": any;
     }
@@ -72,6 +75,12 @@ declare global {
         prototype: HTMLRadioQuestionElement;
         new (): HTMLRadioQuestionElement;
     };
+    interface HTMLRecommendationCardElement extends Components.RecommendationCard, HTMLStencilElement {
+    }
+    var HTMLRecommendationCardElement: {
+        prototype: HTMLRecommendationCardElement;
+        new (): HTMLRecommendationCardElement;
+    };
     interface HTMLSurveyComponentElement extends Components.SurveyComponent, HTMLStencilElement {
     }
     var HTMLSurveyComponentElement: {
@@ -90,6 +99,7 @@ declare global {
         "page-component": HTMLPageComponentElement;
         "progress-bar": HTMLProgressBarElement;
         "radio-question": HTMLRadioQuestionElement;
+        "recommendation-card": HTMLRecommendationCardElement;
         "survey-component": HTMLSurveyComponentElement;
         "text-question": HTMLTextQuestionElement;
     }
@@ -119,6 +129,9 @@ declare namespace LocalJSX {
         "questionNumber"?: number;
         "updateAnswers"?: (key: string, value: string[]) => void;
     }
+    interface RecommendationCard {
+        "recommendation"?: any;
+    }
     interface SurveyComponent {
         "surveyData"?: any;
     }
@@ -133,6 +146,7 @@ declare namespace LocalJSX {
         "page-component": PageComponent;
         "progress-bar": ProgressBar;
         "radio-question": RadioQuestion;
+        "recommendation-card": RecommendationCard;
         "survey-component": SurveyComponent;
         "text-question": TextQuestion;
     }
@@ -146,6 +160,7 @@ declare module "@stencil/core" {
             "page-component": LocalJSX.PageComponent & JSXBase.HTMLAttributes<HTMLPageComponentElement>;
             "progress-bar": LocalJSX.ProgressBar & JSXBase.HTMLAttributes<HTMLProgressBarElement>;
             "radio-question": LocalJSX.RadioQuestion & JSXBase.HTMLAttributes<HTMLRadioQuestionElement>;
+            "recommendation-card": LocalJSX.RecommendationCard & JSXBase.HTMLAttributes<HTMLRecommendationCardElement>;
             "survey-component": LocalJSX.SurveyComponent & JSXBase.HTMLAttributes<HTMLSurveyComponentElement>;
             "text-question": LocalJSX.TextQuestion & JSXBase.HTMLAttributes<HTMLTextQuestionElement>;
         }
