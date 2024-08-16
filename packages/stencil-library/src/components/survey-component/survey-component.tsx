@@ -19,6 +19,7 @@ export class SurveyComponent {
   @Prop() surveyData: any;
   @State() userAnswers: any;
   @State() currentPage = 1;
+  @State() isLoading = false;
 
   updateAnswers = (key: string, value: string[]) => {
     this.userAnswers = {
@@ -29,11 +30,18 @@ export class SurveyComponent {
 
   handleSubmit = () => {
     const filters = getFacetFilters(this.userAnswers)
+    if (!filters?.length) return
+
+    this.isLoading = true;
     searchIndex.search('', {
       facetFilters: filters
     }).then(({ hits }) => {
-      console.log(hits)
+      setTimeout(() => {
+        console.log(hits);
+        this.isLoading = false;
+      }, 1000)
     }).catch((err) => {
+      this.isLoading = false
       console.log('Error getting algolia results:', err)
     })
   }
@@ -91,7 +99,11 @@ export class SurveyComponent {
             class='primary-button'
             onClick={() => this.handleNextClick(pages?.length)}
           >
-            {this.currentPage === pages?.length ? 'submit' : 'next'}
+            {this.isLoading ? (
+              <div class='loader' />
+            ) : (
+              this.currentPage === pages?.length ? 'submit' : 'next'
+            )}
           </button>
         </div>
       </Host>

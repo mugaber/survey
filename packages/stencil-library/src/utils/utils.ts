@@ -30,6 +30,7 @@ export function truncateText(text, length) {
 }
 
 export function getFacetFilters(answers) {
+  if (!answers) return
   const filters = Object.values(answers).flat().map(value => `relevantTo:${value}`)
   return filters
 }
