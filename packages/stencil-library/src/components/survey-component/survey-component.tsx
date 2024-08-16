@@ -25,6 +25,7 @@ export class SurveyComponent {
   @State() unansweredQuestions: any;
   @State() recommendations: any[];
   @State() showRecommendations = false;
+  @State() isIntroTruncated = true;
   pages: any;
 
   updateAnswers = (key: string, value: string[]) => {
@@ -98,6 +99,10 @@ export class SurveyComponent {
     this.currentPage--;
   }
 
+  handleReadClick = () => {
+    this.isIntroTruncated = !this.isIntroTruncated
+  }
+
   render() {
     const survey = getSurveyData(mockSurveyData)
     const pages = getSurveyPages(survey)
@@ -118,7 +123,16 @@ export class SurveyComponent {
           <p class="label">assessment</p>
           <h1>{survey?.name}</h1>
           <p class="timer">Takes only {estimatedTime} minutes</p>
-          <div class="intro-container" innerHTML={truncatedIntro} />
+
+          <div class='intro-section'>
+            <span
+              class='intro-container'
+              innerHTML={this.isIntroTruncated ? truncatedIntro : introHtmlString}
+            />
+            <span class='read-button' onClick={this.handleReadClick}>
+              Read {this.isIntroTruncated ? 'more' : 'less'}
+            </span>
+          </div>
 
           <div class='progress-wrapper'>
             <progress-bar total={pages?.length} progress={this.currentPage} />

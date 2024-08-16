@@ -19,10 +19,26 @@
   font-weight: 400;
 }
 
+.intro-section {
+  margin: 18px 0;
+}
+
 .intro-container {
   h1 {
     display: none;
   }
+
+  p {
+    display: inline;
+    ;
+  }
+}
+
+.read-button {
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 6px;
+  font-weight: 600;
 }
 
 .progress-wrapper {
