@@ -13,8 +13,8 @@ export class CheckboxQuestion {
   @State() selectedChoices: string[] = [];
 
   handleCheckboxChange = (event: Event) => {
+    event.stopPropagation()
     const target = event.target as HTMLInputElement;
-    target.click()
     const value = target.value;
 
     if (target.checked) {
@@ -26,11 +26,6 @@ export class CheckboxQuestion {
     this.updateAnswers(this.question.name, this.selectedChoices);
   }
 
-  handleParentClick = (event: Event) => {
-    const div = event.target as HTMLDivElement;
-    const input = div.querySelector('input[type="checkbox"]') as HTMLInputElement;
-    if (input) input.click()
-  }
 
   render() {
     return (
@@ -44,14 +39,13 @@ export class CheckboxQuestion {
                 'choice': true,
                 'selected': this.selectedChoices.includes(choice)
               }}
-                onClick={this.handleParentClick}
+                onClick={this.handleCheckboxChange}
               >
                 <input
                   type='checkbox'
                   id={choice}
                   name={this.question.name}
                   value={choice}
-                  onChange={this.handleCheckboxChange}
                 />
                 <label htmlFor={choice}>{choice}</label>
               </div>

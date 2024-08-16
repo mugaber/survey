@@ -13,6 +13,7 @@ export class RadioQuestion {
   @State() selectedChoice: string;
 
   handleRadioChange = (event: Event) => {
+    event.stopPropagation()
     const target = event.target as HTMLElement
     const input = target.querySelector('input[type="radio"]') as HTMLInputElement
     if (!input) return
@@ -45,6 +46,10 @@ export class RadioQuestion {
                   id={choice}
                   value={choice}
                   name={this.question.name}
+                  onChange={() => {
+                    this.updateAnswers(this.question.name, [choice])
+                    this.selectedChoice = choice
+                  }}
                 />
                 <label htmlFor={choice}>{choice}</label>
               </div>
