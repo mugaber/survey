@@ -30,6 +30,8 @@ export class SurveyComponent {
         return <radio-question {...props} />
       case 'text':
         return <text-question {...props} />
+      case 'checkbox':
+        return <checkbox-question {...props} />
       default:
         return null
     }

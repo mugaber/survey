@@ -26,8 +26,14 @@
 }
 
 .pages {
-  padding: 20px 12px;
+  padding: 20px 60px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+@media screen and (max-width: 540px) {
+  .pages {
+    padding: 20px;
+  }
 }

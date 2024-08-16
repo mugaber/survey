@@ -1,0 +1,46 @@
+:host {
+  display: block;
+}
+
+.question {
+  h4 {
+    margin-bottom: 14px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 12px;
+}
+
+.choice {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 5px;
+
+  input {
+    cursor: pointer;
+    margin: 0;
+    height: 18px;
+    width: 18px;
+  }
+
+  label {
+    cursor: pointer;
+  }
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+.selected {
+  background-color: #e0e0e0;
+}
