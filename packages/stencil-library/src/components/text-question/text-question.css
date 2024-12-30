@@ -1,0 +1,24 @@
+:host {
+  display: block;
+}
+
+.question {
+  h4 {
+    margin-bottom: 14px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  textarea {
+    width: 100%;
+    height: 44px;
+    min-height: 44px;
+    max-height: 200px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    box-sizing: border-box;
+  }
+}

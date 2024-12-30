@@ -1,0 +1,20 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 5px;
+  display: flex;
+  gap: 3px;
+  padding: 0 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-bar-item {
+  height: 100%;
+  flex: 1;
+  background-color: #E3E3E3;
+}
+
+.completed {
+  background-color: rgb(0, 179, 40);
+}

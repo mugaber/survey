@@ -1,0 +1,173 @@
+:host {
+  display: block;
+}
+
+.header {
+  background-color: var(--main-bg-color);
+  padding: 20px 60px 0 40px;
+  color: var(--grey-color);
+}
+
+.label {
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.timer {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.intro-section {
+  margin: 18px 0;
+}
+
+.intro-container {
+  h1 {
+    display: none;
+  }
+
+  p {
+    display: inline;
+    ;
+  }
+}
+
+.read-button {
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 6px;
+  font-weight: 600;
+}
+
+.progress-wrapper {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  margin-top: 28px;
+  border-bottom: 1px solid #ccc;
+}
+
+
+.pages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  padding: 20px 40px 40px;
+  min-height: 400px;
+  border-bottom: 1px solid #ccc;
+
+  p,
+  h4 {
+    color: var(--grey-color);
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .pages {
+    padding: 20px;
+  }
+}
+
+.recommendations {
+  display: flex;
+  gap: 14px;
+  padding: 20px 40px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #ccc;
+}
+
+.recommendation-card {
+  flex-basis: 49%;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.buttons-container {
+  padding: 20px 40px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.primary-button {
+  background-color: var(--main-blue);
+  color: #fff;
+  border: none;
+  padding: 12px 40px;
+  min-width: 120px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: var(--blue-hover);
+  }
+}
+
+.secondary-button {
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  color: var(--main-blue);
+  padding: 12px 40px;
+  min-width: 120px;
+  border: 1px solid var(--main-blue);
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  &:hover {
+    color: var(--blue-hover);
+    border: 1px solid var(--blue-hover);
+  }
+}
+
+/* Utilities */
+
+.error-message {
+  color: red;
+  font-size: 15px;
+  font-weight: 400;
+
+  p {
+    margin: 12px 0 0 16px;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.reduce-margin {
+  padding-top: 0;
+}
+
+.loader {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
